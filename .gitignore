@@ -52,9 +52,6 @@ x86/
 [Aa]rm/
 [Aa]rm64/
 
-# Entity Framework migrations
-Migrations/
-
 # Publish output
 publish/
 wwwroot/

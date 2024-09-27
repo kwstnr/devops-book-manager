@@ -1,3 +1,5 @@
+using BookManager.Data.Postgres.Abstractions;
+using BookManager.Data.Postgres.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,4 +12,7 @@ public static class BookManagerDataServiceCollectionExtensions
         {
             options.UseNpgsql(connectionString);
         });
+    
+    public static IServiceCollection AddBookManagerDataServices(this IServiceCollection services) =>
+        services.AddScoped<IBookService, BookService>();
 }

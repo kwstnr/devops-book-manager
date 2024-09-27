@@ -6,5 +6,5 @@ public class Genre
     
     public string Name { get; set; }
     
-    public IEnumerable<Book> Books { get; set; }
+    public IEnumerable<BookGenreAssignment> BookGenreAssignments { get; set; }
 }

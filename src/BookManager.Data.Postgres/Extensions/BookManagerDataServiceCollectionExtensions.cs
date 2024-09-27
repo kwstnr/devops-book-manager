@@ -1,3 +1,6 @@
+using BookManager.Data.Postgres.Abstractions;
+using BookManager.Data.Postgres.Services;
+using HotChocolate.Execution.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,4 +13,10 @@ public static class BookManagerDataServiceCollectionExtensions
         {
             options.UseNpgsql(connectionString);
         });
+    
+    public static IServiceCollection AddBookManagerDataServices(this IServiceCollection services) =>
+        services.AddScoped<IBookService, BookService>();
+    
+    public static IRequestExecutorBuilder AddBookManagerDataPostgres(this IRequestExecutorBuilder builder) =>
+        builder.AddPostgresData();
 }

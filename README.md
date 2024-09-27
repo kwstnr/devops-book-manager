@@ -8,4 +8,6 @@ Environment variables for the docker-compose can be defined by creating a .env f
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=yourpassword
 POSTGRES_DB=book-manager
+PGADMIN_DEFAULT_EMAIL=admin@admin.com
+PGADMIN_DEFAULT_PASSWORD=admin
 ```

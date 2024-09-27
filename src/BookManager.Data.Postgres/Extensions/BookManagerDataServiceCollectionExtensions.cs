@@ -5,9 +5,9 @@ namespace BookManager.Data.Postgres.Extensions;
 
 public static class BookManagerDataServiceCollectionExtensions
 {
-    public static IServiceCollection AddBookManagerDataPostgres(this IServiceCollection services,
-        string connectionString) => services.AddDbContextPool<BookManagerDbContext>(options =>
-    {
-        options.UseNpgsql(connectionString);
-    });
+    public static IServiceCollection AddBookManagerDataPostgres(this IServiceCollection services, string connectionString) =>
+        services.AddDbContextPool<BookManagerDbContext>(options =>
+        {
+            options.UseNpgsql(connectionString);
+        });
 }

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManager.Graph", "src\Bo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManager.Domain", "src\BookManager.Domain\BookManager.Domain.csproj", "{FFA83E76-CFCD-4442-9B08-3C5B2101F147}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManager.Data.Postgres", "src\BookManager.Data.Postgres\BookManager.Data.Postgres.csproj", "{3B3DCF4E-0F59-4514-909A-361216739113}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +28,14 @@ Global
 		{FFA83E76-CFCD-4442-9B08-3C5B2101F147}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFA83E76-CFCD-4442-9B08-3C5B2101F147}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFA83E76-CFCD-4442-9B08-3C5B2101F147}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B3DCF4E-0F59-4514-909A-361216739113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B3DCF4E-0F59-4514-909A-361216739113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B3DCF4E-0F59-4514-909A-361216739113}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B3DCF4E-0F59-4514-909A-361216739113}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B560AD61-F1E5-4F46-9FBF-CACAE7983985} = {D7AC202D-BAB2-409B-89AA-2671ACD684D8}
 		{FFA83E76-CFCD-4442-9B08-3C5B2101F147} = {D7AC202D-BAB2-409B-89AA-2671ACD684D8}
+		{3B3DCF4E-0F59-4514-909A-361216739113} = {D7AC202D-BAB2-409B-89AA-2671ACD684D8}
 	EndGlobalSection
 EndGlobal

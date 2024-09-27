@@ -1,3 +1,4 @@
+using BookManager.Data.Postgres.Abstractions;
 using BookManager.Domain;
 
 namespace BookManager.Graph.Nodes;
@@ -9,4 +10,11 @@ public static partial class BookNode
     {
         descriptor.Ignore(x => x.AuthorId);
     }
+    
+    [NodeResolver]
+    public static Task<Book?> GetBookByIdAsync(
+        Guid id,
+        IBookService bookService,
+        CancellationToken cancellationToken) =>
+        bookService.GetBookByIdAsync(id, cancellationToken);
 }

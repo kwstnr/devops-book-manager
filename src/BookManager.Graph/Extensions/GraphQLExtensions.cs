@@ -8,5 +8,6 @@ internal static class GraphQLExtensions
         builder
             .AddFiltering()
             .AddSorting()
-            .AddProjections();
+            .AddProjections()
+            .AddGlobalObjectIdentification();
 }

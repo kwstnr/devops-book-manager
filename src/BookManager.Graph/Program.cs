@@ -12,7 +12,8 @@ builder.Services
     .AddBookManagerDataServices()
     .AddGraphQLServer()
     .AddTypes()
-    .AddBookManagerGraphConventions();
+    .AddBookManagerGraphConventions()
+    .AddBookManagerDataPostgres();
 
 var app = builder.Build();
 

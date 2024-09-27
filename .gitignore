@@ -1,3 +1,6 @@
+# Env
+.env
+
 # .NET Core
 bin/
 obj/

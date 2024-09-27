@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D7AC202D-BAB2-409B-89AA-2671ACD684D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManager.Graph", "src\BookManager.Graph\BookManager.Graph.csproj", "{B560AD61-F1E5-4F46-9FBF-CACAE7983985}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManager.Domain", "src\BookManager.Domain\BookManager.Domain.csproj", "{FFA83E76-CFCD-4442-9B08-3C5B2101F147}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManager.Data.Postgres", "src\BookManager.Data.Postgres\BookManager.Data.Postgres.csproj", "{3B3DCF4E-0F59-4514-909A-361216739113}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevOps", "DevOps", "{376E50B4-2E58-431C-9FF1-70DA97D0F9D0}"
+	ProjectSection(SolutionItems) = preProject
+		devops\docker-compose.yml = devops\docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{D5719CA4-237E-4A75-8C33-855CF24987BF}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B560AD61-F1E5-4F46-9FBF-CACAE7983985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B560AD61-F1E5-4F46-9FBF-CACAE7983985}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B560AD61-F1E5-4F46-9FBF-CACAE7983985}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B560AD61-F1E5-4F46-9FBF-CACAE7983985}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFA83E76-CFCD-4442-9B08-3C5B2101F147}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFA83E76-CFCD-4442-9B08-3C5B2101F147}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFA83E76-CFCD-4442-9B08-3C5B2101F147}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFA83E76-CFCD-4442-9B08-3C5B2101F147}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B3DCF4E-0F59-4514-909A-361216739113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B3DCF4E-0F59-4514-909A-361216739113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B3DCF4E-0F59-4514-909A-361216739113}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B3DCF4E-0F59-4514-909A-361216739113}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B560AD61-F1E5-4F46-9FBF-CACAE7983985} = {D7AC202D-BAB2-409B-89AA-2671ACD684D8}
+		{FFA83E76-CFCD-4442-9B08-3C5B2101F147} = {D7AC202D-BAB2-409B-89AA-2671ACD684D8}
+		{3B3DCF4E-0F59-4514-909A-361216739113} = {D7AC202D-BAB2-409B-89AA-2671ACD684D8}
+	EndGlobalSection
+EndGlobal

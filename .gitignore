@@ -1,3 +1,6 @@
+# Env
+.env
+
 # .NET Core
 bin/
 obj/
@@ -22,8 +25,7 @@ Generated_Code/
 .vs/
 *.suo
 *.ntvs*
-*.njsproj
-*.sln*
+*.njsprojy
 *.sln.docstates
 
 # DotNet Tool Manifest

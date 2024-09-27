@@ -9,6 +9,16 @@ internal class BookGenreAssignmentConfiguration : IEntityTypeConfiguration<BookG
 {
     public void Configure(EntityTypeBuilder<BookGenreAssignment> builder)
     {
+        builder.HasOne<Book>(x => x.Book)
+            .WithMany(x => x.BookGenreAssignments)
+            .HasForeignKey(x => x.BookId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne<Genre>(x => x.Genre)
+            .WithMany(x => x.BookGenreAssignments)
+            .HasForeignKey(x => x.GenreId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
         builder.HasData(SeedingData.BookGenreAssignments);
     }
 }

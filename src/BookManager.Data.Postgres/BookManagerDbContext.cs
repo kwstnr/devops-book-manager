@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookManager.Data.Postgres;
 
-internal class BookManagerDbContext : DbContext
+internal class BookManagerDbContext(DbContextOptions<BookManagerDbContext> options) : DbContext(options)
 {
     internal DbSet<Book> Books { get; set; }
     

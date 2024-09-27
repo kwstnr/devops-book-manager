@@ -11,6 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManager.Domain", "src\B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManager.Data.Postgres", "src\BookManager.Data.Postgres\BookManager.Data.Postgres.csproj", "{3B3DCF4E-0F59-4514-909A-361216739113}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevOps", "DevOps", "{376E50B4-2E58-431C-9FF1-70DA97D0F9D0}"
+	ProjectSection(SolutionItems) = preProject
+		devops\docker-compose.yml = devops\docker-compose.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

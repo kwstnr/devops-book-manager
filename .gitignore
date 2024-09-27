@@ -1,0 +1,78 @@
+# .NET Core
+bin/
+obj/
+
+# VS Code
+.vscode/
+.vscode/*
+
+# User-specific files
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider project files
+.idea/
+.idea/*
+
+# Auto-generated files
+Generated_Code/
+
+# VS temporary files
+.vs/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln*
+*.sln.docstates
+
+# DotNet Tool Manifest
+**/dotnet-tools.json
+
+# Node.js packages
+node_modules/
+
+# Log files
+*.log
+logs/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+# Debug and Release folders
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+
+# Entity Framework migrations
+Migrations/
+
+# Publish output
+publish/
+wwwroot/
+
+# Database files
+*.mdf
+*.ldf
+*.ndf
+
+# Secrets
+secrets.json
+
+# JetBrains Rider files
+.idea/
+.idea/workspace.xml
+.idea/.idea_modules/
+.idea/dotnet_tool.json
+
+# macOS files
+.DS_Store
+
+# Linux files
+*~

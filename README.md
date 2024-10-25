@@ -11,6 +11,9 @@ POSTGRES_PASSWORD=yourpassword
 POSTGRES_DB=book-manager
 PGADMIN_DEFAULT_EMAIL=admin@admin.com
 PGADMIN_DEFAULT_PASSWORD=admin
+
+DATABASE_CONNECTION_STRING=Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+
 ```
 
 ### setup .NET user secrets

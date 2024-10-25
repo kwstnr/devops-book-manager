@@ -3,8 +3,11 @@ using BookManager.Graph.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddBookManagerDataPostgres(builder.Configuration.GetConnectionString("DefaultConnection") ??
-                                            throw new InvalidOperationException());
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                       ?? Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING")
+                       ?? throw new InvalidOperationException("Connection string is missing");
+
+builder.Services.AddBookManagerDataPostgres(connectionString);
 
 builder.Services
     .AddBookManagerDataServices()

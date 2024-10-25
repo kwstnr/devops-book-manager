@@ -14,6 +14,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevOps", "DevOps", "{376E50B4-2E58-431C-9FF1-70DA97D0F9D0}"
 	ProjectSection(SolutionItems) = preProject
 		devops\docker-compose.yml = devops\docker-compose.yml
+		devops\Dockerfile = devops\Dockerfile
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{D5719CA4-237E-4A75-8C33-855CF24987BF}"

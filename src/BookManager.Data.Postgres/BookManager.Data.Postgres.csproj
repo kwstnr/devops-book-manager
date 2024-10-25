@@ -22,4 +22,10 @@
       <ProjectReference Include="..\BookManager.Domain\BookManager.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>BookManager.Data.Postgres.Tests</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+    
 </Project>

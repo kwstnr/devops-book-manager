@@ -1,5 +1,0 @@
-﻿services:
-  api:
-    image: rabbarz/devops-book-manager:latest
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production

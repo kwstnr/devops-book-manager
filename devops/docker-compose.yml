@@ -25,6 +25,19 @@ services:
       - postgres
     networks:
       - backend
+  
+  api:
+    build:
+      context: ../
+      dockerfile: devops/Dockerfile
+    environment:
+        - DATABASE_CONNECTION_STRING=${DATABASE_CONNECTION_STRING}
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    networks:
+      - backend
 
 volumes:
   postgres-data:

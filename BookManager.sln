@@ -28,6 +28,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{371F19BE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManager.Data.Postgres.Tests", "src\Tests\BookManager.Data.Postgres.Tests\BookManager.Data.Postgres.Tests.csproj", "{C6CD232D-E602-4A14-A213-2743FA5FF0D4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{344AF0DD-FBA1-4472-AF83-1735E6BA35F7}"
+	ProjectSection(SolutionItems) = preProject
+		.github\Workflows\BuildAndTest.yml = .github\Workflows\BuildAndTest.yml
+		.github\Workflows\DevAndRelease.yml = .github\Workflows\DevAndRelease.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +66,6 @@ Global
 		{3B3DCF4E-0F59-4514-909A-361216739113} = {D7AC202D-BAB2-409B-89AA-2671ACD684D8}
 		{371F19BE-CAF1-4CD1-8BCE-110F97DB78DD} = {D7AC202D-BAB2-409B-89AA-2671ACD684D8}
 		{C6CD232D-E602-4A14-A213-2743FA5FF0D4} = {371F19BE-CAF1-4CD1-8BCE-110F97DB78DD}
+		{344AF0DD-FBA1-4472-AF83-1735E6BA35F7} = {376E50B4-2E58-431C-9FF1-70DA97D0F9D0}
 	EndGlobalSection
 EndGlobal

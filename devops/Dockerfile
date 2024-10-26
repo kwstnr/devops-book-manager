@@ -7,6 +7,7 @@ COPY *.sln ./
 COPY src/BookManager.Graph/*.csproj ./src/BookManager.Graph/
 COPY src/BookManager.Data.Postgres/*.csproj ./src/BookManager.Data.Postgres/
 COPY src/BookManager.Domain/*.csproj ./src/BookManager.Domain/
+COPY src/Tests/BookManager.Data.Postgres.Tests/*.csproj ./src/Tests/BookManager.Data.Postgres.Tests/
 
 # Restore all dependencies
 RUN dotnet restore

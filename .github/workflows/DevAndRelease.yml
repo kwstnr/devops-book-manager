@@ -1,35 +1,33 @@
-name: Deploy to Dev and release
+name: Build and Publish DEV Docker Image
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-  push_to_registry:
-    name: Push Docker image to Docker Hub
+  build-and-publish:
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-      attestations: write
-      id-token: write
+
     steps:
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-      - name: Git Checkout
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
           
-      - name: GitVersion Setup
-        uses: gittools/actions/gitversion/setup@v3.0.0
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '8.0.x'
+        
+      - name: Setup GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.12
         with:
           versionSpec: '6.x'
-          
-      - name: Determine Version
-        uses: gittools/actions/gitversion/execute@v3.0.0
+
+      - name: Determine version using GitVersion
+        uses: gittools/actions/gitversion/execute@v0.9.12
+        id: gitversion
 
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
@@ -37,28 +35,16 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_PAT }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: |
-            rabbarz/devops-book-manager/book-manager-api:dev-${{steps.gitversion.outputs.fullSemVer}}
-            rabbarz/devops-book-manager/book-manager-api:dev-latest
+      - name: Build and tag Docker image
+        run: |
+          VERSION=${{ steps.gitversion.outputs.major }}.${{ steps.gitversion.outputs.minor }}
+          docker build -t bookmanager-api:dev-latest -t bookmanager-api:dev-$VERSION -f devops/Dockerfile .
 
-      - name: Build and push Docker image
-        id: push
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: .
-          file: ./devops/Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
-#  build:
-#    needs: push_to_registry
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v4
-#      - name: Build the Docker image
-#        run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: Push Docker Image with tags
+        run: |
+          VERSION=${{ steps.gitversion.outputs.major }}.${{ steps.gitversion.outputs.minor }}
+          DOCKER_HUB_NAME=rabbarz
+          docker tag bookmanager-api:dev-latest $DOCKER_HUB_NAME/bookmanager-api:dev-latest
+          docker tag bookmanager-api:dev-$VERSION $DOCKER_HUB_NAME/bookmanager-api:dev-$VERSION
+          docker push $DOCKER_HUB_NAME/bookmanager-api:dev-latest
+          docker push $DOCKER_HUB_NAME/bookmanager-api:dev-$VERSION

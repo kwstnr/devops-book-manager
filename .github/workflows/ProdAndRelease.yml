@@ -1,0 +1,54 @@
+name: Build and Publish DEV Docker Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Select the release branch to deploy'
+        required: true
+        default: 'release/'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.inputs.branch, 'release/')
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Setup GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.12
+        with:
+          versionSpec: '6.x'
+
+      - name: Determine version using GitVersion
+        uses: gittools/actions/gitversion/execute@v0.9.12
+        id: gitversion
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_PAT }}
+
+      - name: Build and tag Docker image
+        run: |
+          VERSION=${{ steps.gitversion.outputs.major }}.${{ steps.gitversion.outputs.minor }}
+          docker build -t bookmanager-api:prod-latest -t bookmanager-api:prod-$VERSION -f devops/Dockerfile .
+
+      - name: Push Docker Image with tags
+        run: |
+          VERSION=${{ steps.gitversion.outputs.major }}.${{ steps.gitversion.outputs.minor }}
+          DOCKER_HUB_NAME=rabbarz
+          docker tag bookmanager-api:prod-latest $DOCKER_HUB_NAME/bookmanager-api:prod-latest
+          docker tag bookmanager-api:prod-$VERSION $DOCKER_HUB_NAME/bookmanager-api:prod-$VERSION
+          docker push $DOCKER_HUB_NAME/bookmanager-api:prod-latest
+          docker push $DOCKER_HUB_NAME/bookmanager-api:prod-$VERSION

@@ -31,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		.github\Workflows\BuildAndTest.yml = .github\Workflows\BuildAndTest.yml
 		.github\Workflows\DevAndRelease.yml = .github\Workflows\DevAndRelease.yml
 		.github\Workflows\IntAndRelease.yml = .github\Workflows\IntAndRelease.yml
+		.github\Workflows\ProdAndRelease.yml = .github\Workflows\ProdAndRelease.yml
 	EndProjectSection
 EndProject
 Global

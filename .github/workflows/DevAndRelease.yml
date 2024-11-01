@@ -1,4 +1,4 @@
-name: Build and Publish DEV Docker Image
+name: Build, Publish and Deploy DEV Docker Image
 
 on:
   workflow_run:
@@ -16,12 +16,12 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
+
       - name: Set up .NET
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: '8.0.x'
-        
+
       - name: Setup GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.12
         with:
@@ -50,3 +50,40 @@ jobs:
           docker tag bookmanager-api:dev-$VERSION $DOCKER_HUB_NAME/bookmanager-api:dev-$VERSION
           docker push $DOCKER_HUB_NAME/bookmanager-api:dev-latest
           docker push $DOCKER_HUB_NAME/bookmanager-api:dev-$VERSION
+
+  deploy-to-vm:
+    name: Deploy to VM
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.DEVOPS_GITHUB_DEPLOY_DEV }}
+
+      - name: Establish SSH Tunnel
+        env:
+          VM_HOST: ${{ secrets.VMHOST_DEV }}
+          VM_USER: ${{ secrets.SSH_USER }}
+        run: |
+          # Set up SSH tunnel for Docker commands
+          ssh -N -L 127.0.0.1:2375:/var/run/docker.sock $VM_USER@$VM_HOST
+          sleep 3  # Wait for the tunnel to establish
+
+      - name: Copy Docker Compose Files to VM
+        env:
+          VM_HOST: ${{ secrets.VMHOST_DEV }}
+          VM_USER: ${{ secrets.SSH_USER }}
+        run: |
+          # Copy Docker Compose files from GitHub Actions runner to the VM
+          ssh $VM_USER@$VM_HOST "mkdir -p /home/$VM_USER/deployment/ && rm -rf /home/$VM_USER/deployment/* /home/$VM_USER/deployment/.[!.]*"
+          scp -o StrictHostKeyChecking=no -r .github/Workflows/*.yml $VM_USER@$VM_HOST:/home/$VM_USER/deployment/
+
+      - name: Deploy Docker Containers via Tunnel
+        env:
+          DOCKER_HOST: tcp://127.0.0.1:2375
+        run: |
+          # Use the copied Docker Compose files to pull images and start containers
+          docker-compose -f /home/$VM_USER/deployment/docker-compose.yml -f /home/$VM_USER/deployment/docker-compose.production.yml pull
+          docker-compose -f /home/$VM_USER/deployment/docker-compose.yml -f /home/$VM_USER/deployment/docker-compose.production.yml up -d

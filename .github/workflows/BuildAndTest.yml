@@ -31,7 +31,3 @@ jobs:
         QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
       with:
         args: "--fail-threshold,0,--baseline,.github/workflows/qodana.sarif.json"     
-    - name: Github code scanning  
-      uses: github/codeql-action/upload-sarif@v3
-      with:
-        sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json

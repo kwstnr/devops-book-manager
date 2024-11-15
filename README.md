@@ -1,6 +1,12 @@
 # Book Manager
 This is a simple GraphQL Api for managing books, authors and genres. It is written specifically for learning purposes and used for DevOps focussing projects for the DevOps lectures at the university of applied sciences lucerne.
 
+### Build
+[![Build and test](https://github.com/kwstnr/devops-book-manager/actions/workflows/BuildAndTest.yml/badge.svg)](https://github.com/kwstnr/devops-book-manager/actions/workflows/BuildAndTest.yml)
+
+### Dev Stage
+[![Build, Publish and Deploy DEV Docker Image](https://github.com/kwstnr/devops-book-manager/actions/workflows/DevAndRelease.yml/badge.svg)](https://github.com/kwstnr/devops-book-manager/actions/workflows/DevAndRelease.yml)
+
 ## Local Development
 ### setup docker environment variables
 within the devops folder, there is a docker-compose file which can be used to start a local postgres database. The connection string is set in the .NET user secrets.

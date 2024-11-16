@@ -7,10 +7,13 @@ on:
         description: "Select the branch to run the workflow"
         required: true
         type: string
+        default: 'release/'
 
 jobs:
   build-and-publish:
-    if: startsWith(github.event.inputs.branch, 'release/')
+    if: >
+      startsWith(github.event.inputs.branch, 'release/') &&
+      github.event_name != 'pull_request'
     runs-on: ubuntu-latest
 
     steps:

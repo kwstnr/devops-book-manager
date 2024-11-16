@@ -4,14 +4,17 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'Select the release branch to deploy'
+        description: "Select the branch to run the workflow"
         required: true
+        type: string
         default: 'release/'
 
 jobs:
   build-and-publish:
+    if: >
+      startsWith(github.event.inputs.branch, 'release/') &&
+      github.event_name != 'pull_request'
     runs-on: ubuntu-latest
-    if: startsWith(github.event.inputs.branch, 'release/')
 
     steps:
       - name: Checkout code
@@ -52,3 +55,34 @@ jobs:
           docker tag bookmanager-api:prod-$VERSION $DOCKER_HUB_NAME/bookmanager-api:prod-$VERSION
           docker push $DOCKER_HUB_NAME/bookmanager-api:prod-latest
           docker push $DOCKER_HUB_NAME/bookmanager-api:prod-$VERSION
+
+  deploy-to-vm:
+    name: Deploy to VM
+    needs: build-and-publish
+    runs-on: prod
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Copy Docker Compose Files Locally
+        run: |
+          mkdir -p ~/deployment/
+          rm -rf ~/deployment/*.yml
+          
+          cp devops/*.yml ~/deployment/
+
+      - name: Setup environment variables
+        run: |
+          rm -rf ~/deployment/.env
+          echo "POSTGRES_USER=${{ secrets.DEV_POSTGRES_USER }}" >> ~/deployment/.env
+          echo "POSTGRES_PASSWORD=${{ secrets.DEV_POSTGRES_PASSWORD }}" >> ~/deployment/.env
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> ~/deployment/.env
+          echo "PGADMIN_DEFAULT_EMAIL=${{ secrets.DEV_PGADMIN_DEFAULT_EMAIL }}" >> ~/deployment/.env
+          echo "PGADMIN_DEFAULT_PASSWORD=${{ secrets.DEV_PGADMIN_DEFAULT_PASSWORD }}" >> ~/deployment/.env
+          echo "DATABASE_CONNECTION_STRING=${{ secrets.DEV_DATABASE_CONNECTION_STRING }}" >> ~/deployment/.env
+
+      - name: Deploy Docker Containers
+        run: |
+          docker-compose -f ~/deployment/docker-compose.yml -f ~/deployment/docker-compose.production.yml pull
+          docker-compose -f ~/deployment/docker-compose.yml -f ~/deployment/docker-compose.production.yml up -d

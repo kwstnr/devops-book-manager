@@ -1,6 +1,18 @@
 # Book Manager
 This is a simple GraphQL Api for managing books, authors and genres. It is written specifically for learning purposes and used for DevOps focussing projects for the DevOps lectures at the university of applied sciences lucerne.
 
+### Build
+[![Build and test](https://github.com/kwstnr/devops-book-manager/actions/workflows/BuildAndTest.yml/badge.svg)](https://github.com/kwstnr/devops-book-manager/actions/workflows/BuildAndTest.yml)
+
+### Dev Stage
+[![Build, Publish and Deploy DEV Docker Image](https://github.com/kwstnr/devops-book-manager/actions/workflows/DevAndRelease.yml/badge.svg)](https://github.com/kwstnr/devops-book-manager/actions/workflows/DevAndRelease.yml)
+
+## Project Structure
+placeholder
+
+## Technologies and Tools
+placeholder (.NET 8, ChilliCream/HotChocolate, Docker, Docker-Compose, PostgreSQL, PGAdmin, Rider)
+
 ## Local Development
 ### setup docker environment variables
 within the devops folder, there is a docker-compose file which can be used to start a local postgres database. The connection string is set in the .NET user secrets.
@@ -30,3 +42,14 @@ to set up environment variables e.g. connection string in Rider the .Net user se
 }
 ```
 the username and password are the same as in .env file
+
+## Branching Strategy
+placeholder (trunk based development)
+
+## Access Points
+placeholder (Repos, Diesnte, Services)
+
+## CI/CD Pipeline
+
+
+

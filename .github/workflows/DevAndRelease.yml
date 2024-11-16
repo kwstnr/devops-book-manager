@@ -1,6 +1,9 @@
-name: Build and Publish DEV Docker Image
+name: Build, Publish and Deploy DEV Docker Image
 
 on:
+  push:
+    branches:
+      - 'release/*'
   workflow_run:
     workflows: [ "Build and Test" ]
     types:
@@ -8,7 +11,7 @@ on:
 
 jobs:
   build-and-publish:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.ref == 'refs/heads/release/' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -16,12 +19,12 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
+
       - name: Set up .NET
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: '8.0.x'
-        
+
       - name: Setup GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.12
         with:
@@ -40,13 +43,44 @@ jobs:
       - name: Build and tag Docker image
         run: |
           VERSION=${{ steps.gitversion.outputs.major }}.${{ steps.gitversion.outputs.minor }}
-          docker build -t bookmanager-api:dev-latest -t bookmanager-api:dev-$VERSION -f devops/Dockerfile .
+          docker build -t bookmanager-api:latest -t bookmanager-api:$VERSION -f devops/Dockerfile .
 
       - name: Push Docker Image with tags
         run: |
           VERSION=${{ steps.gitversion.outputs.major }}.${{ steps.gitversion.outputs.minor }}
           DOCKER_HUB_NAME=rabbarz
-          docker tag bookmanager-api:dev-latest $DOCKER_HUB_NAME/bookmanager-api:dev-latest
-          docker tag bookmanager-api:dev-$VERSION $DOCKER_HUB_NAME/bookmanager-api:dev-$VERSION
-          docker push $DOCKER_HUB_NAME/bookmanager-api:dev-latest
-          docker push $DOCKER_HUB_NAME/bookmanager-api:dev-$VERSION
+          docker tag bookmanager-api:latest $DOCKER_HUB_NAME/bookmanager-api:latest
+          docker tag bookmanager-api:$VERSION $DOCKER_HUB_NAME/bookmanager-api:$VERSION
+          docker push $DOCKER_HUB_NAME/bookmanager-api:latest
+          docker push $DOCKER_HUB_NAME/bookmanager-api:$VERSION
+
+  deploy-to-vm:
+    name: Deploy to VM
+    needs: build-and-publish
+    runs-on: dev
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Copy Docker Compose Files Locally
+        run: |
+          mkdir -p ~/deployment/
+          rm -rf ~/deployment/*.yml
+          
+          cp devops/*.yml ~/deployment/
+          
+      - name: Setup environment variables
+        run: |
+          rm -rf ~/deployment/.env
+          echo "POSTGRES_USER=${{ secrets.DEV_POSTGRES_USER }}" >> ~/deployment/.env
+          echo "POSTGRES_PASSWORD=${{ secrets.DEV_POSTGRES_PASSWORD }}" >> ~/deployment/.env
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> ~/deployment/.env
+          echo "PGADMIN_DEFAULT_EMAIL=${{ secrets.DEV_PGADMIN_DEFAULT_EMAIL }}" >> ~/deployment/.env
+          echo "PGADMIN_DEFAULT_PASSWORD=${{ secrets.DEV_PGADMIN_DEFAULT_PASSWORD }}" >> ~/deployment/.env
+          echo "DATABASE_CONNECTION_STRING=${{ secrets.DEV_DATABASE_CONNECTION_STRING }}" >> ~/deployment/.env
+
+      - name: Deploy Docker Containers
+        run: |
+          docker-compose -f ~/deployment/docker-compose.yml -f ~/deployment/docker-compose.development.yml pull
+          docker-compose -f ~/deployment/docker-compose.yml -f ~/deployment/docker-compose.development.yml up -d

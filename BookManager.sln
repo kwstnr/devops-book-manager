@@ -29,9 +29,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{344AF0DD-FBA1-4472-AF83-1735E6BA35F7}"
 	ProjectSection(SolutionItems) = preProject
 		.github\Workflows\BuildAndTest.yml = .github\Workflows\BuildAndTest.yml
-		.github\Workflows\DevAndRelease.yml = .github\Workflows\DevAndRelease.yml
-		.github\Workflows\IntAndRelease.yml = .github\Workflows\IntAndRelease.yml
-		.github\Workflows\ProdAndRelease.yml = .github\Workflows\ProdAndRelease.yml
+		.github\Workflows\DevRelease.yml = .github\Workflows\DevRelease.yml
+		.github\Workflows\IntRelease.yml = .github\Workflows\IntRelease.yml
+		.github\Workflows\ProdRelease.yml = .github\Workflows\ProdRelease.yml
+		.github\workflows\qodana.sarif.json = .github\workflows\qodana.sarif.json
 	EndProjectSection
 EndProject
 Global

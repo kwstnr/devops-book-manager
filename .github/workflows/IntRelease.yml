@@ -1,0 +1,85 @@
+name: Build, Publish and Deploy INT Docker Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Select the branch to run the workflow"
+        required: true
+        type: string
+
+jobs:
+  build-and-publish:
+    if: startsWith(github.event.inputs.branch, 'release/')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Setup GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.12
+        with:
+          versionSpec: '6.x'
+
+      - name: Determine version using GitVersion
+        uses: gittools/actions/gitversion/execute@v0.9.12
+        id: gitversion
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_PAT }}
+
+      - name: Build and tag Docker image
+        run: |
+          VERSION=${{ steps.gitversion.outputs.major }}.${{ steps.gitversion.outputs.minor }}
+          docker build -t bookmanager-api:int-latest -t bookmanager-api:int-$VERSION -f devops/Dockerfile .
+
+      - name: Push Docker Image with tags
+        run: |
+          VERSION=${{ steps.gitversion.outputs.major }}.${{ steps.gitversion.outputs.minor }}
+          DOCKER_HUB_NAME=rabbarz
+          docker tag bookmanager-api:int-latest $DOCKER_HUB_NAME/bookmanager-api:int-latest
+          docker tag bookmanager-api:int-$VERSION $DOCKER_HUB_NAME/bookmanager-api:int-$VERSION
+          docker push $DOCKER_HUB_NAME/bookmanager-api:int-latest
+          docker push $DOCKER_HUB_NAME/bookmanager-api:int-$VERSION
+
+  deploy-to-vm:
+    name: Deploy to VM
+    needs: build-and-publish
+    runs-on: int
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Copy Docker Compose Files Locally
+        run: |
+          mkdir -p ~/deployment/
+          rm -rf ~/deployment/*.yml
+          
+          cp devops/*.yml ~/deployment/
+
+      - name: Setup environment variables
+        run: |
+          rm -rf ~/deployment/.env
+          echo "POSTGRES_USER=${{ secrets.DEV_POSTGRES_USER }}" >> ~/deployment/.env
+          echo "POSTGRES_PASSWORD=${{ secrets.DEV_POSTGRES_PASSWORD }}" >> ~/deployment/.env
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> ~/deployment/.env
+          echo "PGADMIN_DEFAULT_EMAIL=${{ secrets.DEV_PGADMIN_DEFAULT_EMAIL }}" >> ~/deployment/.env
+          echo "PGADMIN_DEFAULT_PASSWORD=${{ secrets.DEV_PGADMIN_DEFAULT_PASSWORD }}" >> ~/deployment/.env
+          echo "DATABASE_CONNECTION_STRING=${{ secrets.DEV_DATABASE_CONNECTION_STRING }}" >> ~/deployment/.env
+
+      - name: Deploy Docker Containers
+        run: |
+          docker-compose -f ~/deployment/docker-compose.yml -f ~/deployment/docker-compose.integration.yml pull
+          docker-compose -f ~/deployment/docker-compose.yml -f ~/deployment/docker-compose.integration.yml up -d

@@ -1,6 +1,9 @@
 name: Build, Publish and Deploy DEV Docker Image
 
 on:
+  push:
+    branches:
+      - 'release/*'
   workflow_run:
     workflows: [ "Build and Test" ]
     types:
@@ -8,7 +11,7 @@ on:
 
 jobs:
   build-and-publish:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.ref == 'refs/heads/release/' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -79,5 +82,5 @@ jobs:
 
       - name: Deploy Docker Containers
         run: |
-          docker-compose -f ~/deployment/docker-compose.yml -f ~/deployment/docker-compose.production.yml pull
-          docker-compose -f ~/deployment/docker-compose.yml -f ~/deployment/docker-compose.production.yml up -d
+          docker-compose -f ~/deployment/docker-compose.yml -f ~/deployment/docker-compose.development.yml pull
+          docker-compose -f ~/deployment/docker-compose.yml -f ~/deployment/docker-compose.development.yml up -d

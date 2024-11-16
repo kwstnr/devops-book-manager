@@ -1,6 +1,6 @@
 ﻿services:
   api:
-    image: rabbarz/bookmanager-api:dev-latest
+    image: rabbarz/bookmanager-api:prod-latest
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:

@@ -14,9 +14,10 @@ public static class BookManagerDataServiceCollectionExtensions
         {
             options.UseNpgsql(connectionString);
         });
-    
-    public static IServiceCollection AddBookManagerDataServices(this IServiceCollection services) =>
-        services.AddScoped<IBookService, BookService>();
+
+    public static IServiceCollection AddBookManagerDataServices(this IServiceCollection services) => services
+        .AddScoped<IBookService, BookService>()
+        .AddScoped<IAuthorService, AuthorService>();
     
     public static IRequestExecutorBuilder AddBookManagerDataPostgres(this IRequestExecutorBuilder builder) =>
         builder.AddPostgresData();

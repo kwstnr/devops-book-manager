@@ -12,4 +12,10 @@ public static partial class AuthorNode
         IAuthorService authorService,
         CancellationToken cancellationToken) =>
         authorService.GetAuthorByIdAsync(id, cancellationToken);
+    
+    public static async Task<IEnumerable<Book>> GetBooksAsync(
+        [Parent] Author author,
+        IBookService bookService,
+        CancellationToken cancellationToken) =>
+        await bookService.GetBooksByAuthorIdAsync(author.Id, cancellationToken);
 }

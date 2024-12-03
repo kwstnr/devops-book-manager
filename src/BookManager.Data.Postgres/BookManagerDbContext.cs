@@ -1,4 +1,5 @@
 using BookManager.Data.Postgres.Configurations;
+using BookManager.Data.Postgres.Seeding;
 using BookManager.Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,5 +20,7 @@ internal class BookManagerDbContext(DbContextOptions<BookManagerDbContext> optio
         modelBuilder.ApplyConfiguration(new AuthorConfiguration());
         modelBuilder.ApplyConfiguration(new BookConfiguration());
         modelBuilder.ApplyConfiguration(new GenreConfiguration());
+
+        modelBuilder.Entity("BookGenre").HasData(SeedingData.BookGenreAssignments);
     }
 }

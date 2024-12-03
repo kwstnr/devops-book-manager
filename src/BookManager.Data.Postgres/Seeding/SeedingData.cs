@@ -61,4 +61,10 @@ internal static class SeedingData
         FirstName = "Marc",
         LastName = "Elsberg"
     };
+    
+    internal static IEnumerable<object> BookGenreAssignments => new[]
+    {
+        new { BookId = Guid.Parse("ec7611bb-a7cf-4af3-a81d-1cf231894dff"), GenreId = Guid.Parse("b2d0376b-3e47-461a-8ddf-e830eaf888e8") },
+        new { BookId = Guid.Parse("c5537ac1-76d6-452b-9a45-f6aca18d0e70"), GenreId = Guid.Parse("eb7f2840-b13e-4c62-ae44-b4d27ad1c251") }
+    };
 }

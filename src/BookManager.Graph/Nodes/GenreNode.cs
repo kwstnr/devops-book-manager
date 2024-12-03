@@ -6,11 +6,6 @@ namespace BookManager.Graph.Nodes;
 [ObjectType<Genre>]
 public static partial class GenreNode
 {
-    static partial void Configure(IObjectTypeDescriptor<Genre> descriptor)
-    {
-        descriptor.Ignore(x => x.BookGenreAssignments);
-    }
-
     [NodeResolver]
     public static Task<Genre?> GetGenreByIdAsync(
         Guid id,

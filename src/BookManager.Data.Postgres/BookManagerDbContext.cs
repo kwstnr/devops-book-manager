@@ -11,8 +11,6 @@ internal class BookManagerDbContext(DbContextOptions<BookManagerDbContext> optio
     internal DbSet<Book> Books { get; set; }
     
     internal DbSet<Genre> Genres { get; set; }
-    
-    internal DbSet<BookGenreAssignment> BookGenreAssignments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -21,6 +19,5 @@ internal class BookManagerDbContext(DbContextOptions<BookManagerDbContext> optio
         modelBuilder.ApplyConfiguration(new AuthorConfiguration());
         modelBuilder.ApplyConfiguration(new BookConfiguration());
         modelBuilder.ApplyConfiguration(new GenreConfiguration());
-        modelBuilder.ApplyConfiguration(new BookGenreAssignmentConfiguration());
     }
 }

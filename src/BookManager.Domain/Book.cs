@@ -14,5 +14,5 @@ public class Book
     
     public Author Author { get; set; }
     
-    public IEnumerable<BookGenreAssignment> BookGenreAssignments { get; set; }
+    public IEnumerable<Genre> Genres { get; set; }
 }

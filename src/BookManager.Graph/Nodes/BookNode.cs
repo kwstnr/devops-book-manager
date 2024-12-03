@@ -23,4 +23,10 @@ public static partial class BookNode
         IAuthorService authorService,
         CancellationToken cancellationToken) =>
         authorService.GetAuthorByBookIdAsync(book.Id, cancellationToken);
+    
+    public static Task<IEnumerable<Genre>> GetGenresAsync(
+        [Parent] Book book,
+        IGenreService genreService,
+        CancellationToken cancellationToken) =>
+        genreService.GetGenresByBookIdAsync(book.Id, cancellationToken);
 }

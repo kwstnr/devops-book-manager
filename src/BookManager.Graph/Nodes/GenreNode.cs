@@ -12,4 +12,10 @@ public static partial class GenreNode
         IGenreService genreService,
         CancellationToken cancellationToken) =>
         genreService.GetGenreByIdAsync(id, cancellationToken);
+    
+    public static Task<IEnumerable<Book>> GetBooksAsync(
+        [Parent] Genre genre,
+        IBookService bookService,
+        CancellationToken cancellationToken) =>
+        bookService.GetBooksByGenreIdAsync(genre.Id, cancellationToken);
 }

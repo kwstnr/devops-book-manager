@@ -4,7 +4,7 @@ using BookManager.Domain;
 
 namespace BookManager.Data.Postgres.Services;
 
-internal class GenreService(BookManagerDbContext context, IGenreByIdDataLoader genreByIdDataLoader) : IGenreService
+internal class GenreService(BookManagerDbContext context, IGenreByIdDataLoader genreByIdDataLoader, IGenresByBookIdDataLoader genresByBookIdDataLoader) : IGenreService
 {
     public IQueryable<Genre> GetGenres()
         => context.Genres;
@@ -12,8 +12,6 @@ internal class GenreService(BookManagerDbContext context, IGenreByIdDataLoader g
     public Task<Genre?> GetGenreByIdAsync(Guid id, CancellationToken cancellationToken)
         => genreByIdDataLoader.LoadAsync(id, cancellationToken);
 
-    public Task<IEnumerable<Genre>> GetGenresByBookIdAsync(Guid bookId, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IEnumerable<Genre>> GetGenresByBookIdAsync(Guid bookId, CancellationToken cancellationToken)
+        => await genresByBookIdDataLoader.LoadAsync(bookId, cancellationToken) ?? [];
 }

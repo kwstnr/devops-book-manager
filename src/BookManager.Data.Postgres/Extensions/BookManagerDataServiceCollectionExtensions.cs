@@ -17,7 +17,8 @@ public static class BookManagerDataServiceCollectionExtensions
 
     public static IServiceCollection AddBookManagerDataServices(this IServiceCollection services) => services
         .AddScoped<IBookService, BookService>()
-        .AddScoped<IAuthorService, AuthorService>();
+        .AddScoped<IAuthorService, AuthorService>()
+        .AddScoped<IGenreService, GenreService>();
     
     public static IRequestExecutorBuilder AddBookManagerDataPostgres(this IRequestExecutorBuilder builder) =>
         builder.AddPostgresData();

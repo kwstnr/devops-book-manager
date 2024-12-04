@@ -9,5 +9,6 @@ internal static class GraphQLExtensions
             .AddFiltering()
             .AddSorting()
             .AddProjections()
+            .AddDefaultNodeIdSerializer(useUrlSafeBase64: true)
             .AddGlobalObjectIdentification();
 }

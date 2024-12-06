@@ -1,6 +1,13 @@
-name: Build, Publish and Deploy DEV Docker Image
+name: Build and Publish DEV Docker Image
 
 on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Select the branch to run the workflow"
+        required: true
+        type: string
+        default: 'release/'
   workflow_run:
     workflows: [ "Build and Test" ]
     types:
@@ -8,7 +15,9 @@ on:
 
 jobs:
   build-and-publish:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.ref == 'refs/heads/main' }}
+    if: >
+      startsWith(github.event.inputs.branch, 'release/') &&
+      github.event_name != 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
@@ -40,21 +49,21 @@ jobs:
       - name: Build and tag Docker image
         run: |
           VERSION=${{ steps.gitversion.outputs.major }}.${{ steps.gitversion.outputs.minor }}
-          docker build -t bookmanager-api:latest -t bookmanager-api:$VERSION -f devops/Dockerfile .
+          docker build -t bookmanager-api:prod-latest -t bookmanager-api:prod-$VERSION -f devops/Dockerfile .
 
       - name: Push Docker Image with tags
         run: |
           VERSION=${{ steps.gitversion.outputs.major }}.${{ steps.gitversion.outputs.minor }}
           DOCKER_HUB_NAME=rabbarz
-          docker tag bookmanager-api:latest $DOCKER_HUB_NAME/bookmanager-api:latest
-          docker tag bookmanager-api:$VERSION $DOCKER_HUB_NAME/bookmanager-api:$VERSION
-          docker push $DOCKER_HUB_NAME/bookmanager-api:latest
-          docker push $DOCKER_HUB_NAME/bookmanager-api:$VERSION
+          docker tag bookmanager-api:prod-latest $DOCKER_HUB_NAME/bookmanager-api:prod-latest
+          docker tag bookmanager-api:prod-$VERSION $DOCKER_HUB_NAME/bookmanager-api:prod-$VERSION
+          docker push $DOCKER_HUB_NAME/bookmanager-api:prod-latest
+          docker push $DOCKER_HUB_NAME/bookmanager-api:prod-$VERSION
 
   deploy-to-vm:
     name: Deploy to VM
     needs: build-and-publish
-    runs-on: dev
+    runs-on: prod
 
     steps:
       - name: Checkout code
@@ -66,7 +75,7 @@ jobs:
           rm -rf ~/deployment/*.yml
           
           cp devops/*.yml ~/deployment/
-          
+
       - name: Setup environment variables
         run: |
           rm -rf ~/deployment/.env
@@ -79,5 +88,5 @@ jobs:
 
       - name: Deploy Docker Containers
         run: |
-          docker-compose -f ~/deployment/docker-compose.yml -f ~/deployment/docker-compose.development.yml pull
-          docker-compose -f ~/deployment/docker-compose.yml -f ~/deployment/docker-compose.development.yml up -d
+          docker-compose -f ~/deployment/docker-compose.yml -f ~/deployment/docker-compose.production.yml pull
+          docker-compose -f ~/deployment/docker-compose.yml -f ~/deployment/docker-compose.production.yml up -d

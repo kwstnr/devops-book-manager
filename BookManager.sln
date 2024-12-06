@@ -15,8 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevOps", "DevOps", "{376E50
 	ProjectSection(SolutionItems) = preProject
 		devops\docker-compose.yml = devops\docker-compose.yml
 		devops\Dockerfile = devops\Dockerfile
-		devops\docker-compose.override.yml = devops\docker-compose.override.yml
 		devops\docker-compose.production.yml = devops\docker-compose.production.yml
+		devops\docker-compose.override.yml = devops\docker-compose.override.yml
+		devops\docker-compose.integration.yml = devops\docker-compose.integration.yml
 		devops\docker-compose.development.yml = devops\docker-compose.development.yml
 	EndProjectSection
 EndProject
@@ -32,7 +33,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{344AF0DD-FBA1-4472-AF83-1735E6BA35F7}"
 	ProjectSection(SolutionItems) = preProject
 		.github\Workflows\BuildAndTest.yml = .github\Workflows\BuildAndTest.yml
-		.github\Workflows\DevAndRelease.yml = .github\Workflows\DevAndRelease.yml
+		.github\Workflows\DevRelease.yml = .github\Workflows\DevRelease.yml
+		.github\Workflows\IntRelease.yml = .github\Workflows\IntRelease.yml
+		.github\Workflows\ProdRelease.yml = .github\Workflows\ProdRelease.yml
 		.github\workflows\qodana.sarif.json = .github\workflows\qodana.sarif.json
 	EndProjectSection
 EndProject

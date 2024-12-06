@@ -3,7 +3,7 @@ name: Build, Publish and Deploy DEV Docker Image
 on:
   push:
     branches:
-      - 'release/*'
+      - 'main'
   workflow_run:
     workflows: [ "Build and Test" ]
     types:
@@ -12,8 +12,9 @@ on:
 jobs:
   build-and-publish:
     if: >
-      startsWith(github.event.inputs.branch, 'release/') &&
-      github.event_name != 'pull_request'
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:

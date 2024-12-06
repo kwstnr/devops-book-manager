@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevOps", "DevOps", "{376E50
 	ProjectSection(SolutionItems) = preProject
 		devops\docker-compose.yml = devops\docker-compose.yml
 		devops\Dockerfile = devops\Dockerfile
+		devops\docker-compose.production.yml = devops\docker-compose.production.yml
+		devops\docker-compose.override.yml = devops\docker-compose.override.yml
+		devops\docker-compose.integration.yml = devops\docker-compose.integration.yml
+		devops\docker-compose.development.yml = devops\docker-compose.development.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{D5719CA4-237E-4A75-8C33-855CF24987BF}"

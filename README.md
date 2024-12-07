@@ -1,13 +1,20 @@
 # Book Manager
 This is a simple GraphQL Api for managing books, authors and genres. It is written specifically for learning purposes and used for DevOps focussing projects for the DevOps lectures at the university of applied sciences lucerne.
 
-The documentation can be found on the [Github Pages](https://kwstnr.github.io/devops-book-manager)
-
-### Build
+## Build
 [![Build and test](https://github.com/kwstnr/devops-book-manager/actions/workflows/BuildAndTest.yml/badge.svg)](https://github.com/kwstnr/devops-book-manager/actions/workflows/BuildAndTest.yml)
 
-### Dev Stage
-[![Build, Publish and Deploy DEV Docker Image](https://github.com/kwstnr/devops-book-manager/actions/workflows/DevAndRelease.yml/badge.svg)](https://github.com/kwstnr/devops-book-manager/actions/workflows/DevAndRelease.yml)
+## Dev Stage
+[![Build, Publish and Deploy DEV Docker Image](https://github.com/kwstnr/devops-book-manager/actions/workflows/DevRelease.yml/badge.svg)](https://github.com/kwstnr/devops-book-manager/actions/workflows/DevRelease.yml)
+
+## INT Stage
+[![Build, Publish and Deploy INT Docker Image](https://github.com/kwstnr/devops-book-manager/actions/workflows/IntRelease.yml/badge.svg)](https://github.com/kwstnr/devops-book-manager/actions/workflows/IntRelease.yml)
+
+## PROD Stage
+[![Build, Publish and Deploy PROD Docker Image](https://github.com/kwstnr/devops-book-manager/actions/workflows/ProdRelease.yml/badge.svg)](https://github.com/kwstnr/devops-book-manager/actions/workflows/ProdRelease.yml)
+
+## Documentation
+The documentation can be found on the [Github Pages](https://kwstnr.github.io/devops-book-manager)
 
 ## Project Structure
 placeholder

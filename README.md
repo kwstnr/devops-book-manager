@@ -1,6 +1,8 @@
 # Book Manager
 This is a simple GraphQL Api for managing books, authors and genres. It is written specifically for learning purposes and used for DevOps focussing projects for the DevOps lectures at the university of applied sciences lucerne.
 
+The documentation can be found on the [Github Pages](https://kwstnr.github.io/devops-book-manager)
+
 ### Build
 [![Build and test](https://github.com/kwstnr/devops-book-manager/actions/workflows/BuildAndTest.yml/badge.svg)](https://github.com/kwstnr/devops-book-manager/actions/workflows/BuildAndTest.yml)
 

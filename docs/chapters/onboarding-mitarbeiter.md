@@ -2,34 +2,43 @@
 
 ## Aufsetzen der lokalen Entwicklungsumgebung
 
-### Docker environment variablen aufsetzen
+### Docker-Umgebungsvariablen konfigurieren
 
-Im devops-Ordner befindet sich eine docker-compose-Datei, die zum Starten einer lokalen Postgres-Datenbank verwendet werden kann. Der ConnectionString wird in den .NET User Secrets festgelegt. Umgebungsvariablen für docker-compose können definiert werden, indem eine .env-Datei im selben Verzeichnis wie die docker-compose-Datei erstellt und die Variablen wie im folgenden Beispiel gesetzt werden.
+Im Ordner `devops` befindet sich eine `docker-compose.yml`-Datei, die zum Starten einer lokalen PostgreSQL-Datenbank verwendet werden kann. Der Connection String wird in den .NET User Secrets definiert. Umgebungsvariablen für `docker-compose` können in einer `.env`-Datei im selben Verzeichnis definiert werden.
 
-````
+**Beispiel:**
+
+```
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=yourpassword
 POSTGRES_DB=book-manager
 PGADMIN_DEFAULT_EMAIL=admin@admin.com
 PGADMIN_DEFAULT_PASSWORD=admin
 DATABASE_CONNECTION_STRING=Host=postgres;Database=book-manager;Username=postgres;Password=yourpassword
-````
+```
 
+### .NET User Secrets einrichten
 
-### .NET User Secrets aufsetzen
+Die Einrichtung der .NET User Secrets in Rider erfolgt wie folgt:
 
-Um in Rider die environment variablen einzurichten, z. B. den ConnectionString, benutzen wir das .NET User Secrets Tool
+1. **Solution öffnen**
 
-1. Solution in Rider öffnen
-2. rechts klick auf BookManager.Graph -> Tools -> .NET user secrets
-3. Connection String als JSON einfügen
+   Öffne die Solution in Rider.
 
-````
+2. **User Secrets aufrufen**
+
+   Rechtsklick auf `BookManager.Graph` -> **Tools** -> **.NET User Secrets**.
+
+3. **Connection String eintragen**
+
+   Füge den Connection String als JSON ein:
+
+```
 {
   "ConnectionStrings": {
     "DefaultConnection": "Host=localhost;Database=book-manager;Username=;Password="
   }
 }
-````
+```
 
-Username und password sind das Selbe wie in der .env Datei
+Die Werte für `Username` und `Password` entsprechen den Angaben in der `.env`-Datei.

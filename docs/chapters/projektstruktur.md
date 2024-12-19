@@ -44,6 +44,17 @@ Hierbei sind noch viele Challanges wie Projection, Nested Filtering und effizien
 In diesem Layer werden alle GraphQL-Spezifischen Queries, Types und Nodes definiert. Hierbei wird stark auf die HotChocolate Source-Generation gesetzt, welche viel Boilerplate-Code mittels Attributen übernimmt.
 In dieser Dokumentation wird nicht zu detailliert in die Funktionsweise von GraphQL eingegangen. Diese kann auf der offiziellen [HotChocolate Dokumentation](https://chillicream.com/docs/hotchocolate/v14) betrachtet werden.
 
+## Techniken & Tools
+In Sachen "Techniken" wurden die meisten Themen bereits erwähnt. Es wird auf eine Postgres Datenbank gesetzt, da diese Multiplatform Docker Images anbietet und eine schlanke Datenbankstruktur anbietet.
+Somit ist die Entwicklung und das Hosting auf den unterschiedlichen Umgebungen, welche das Enterprise Lab und die Entwicklungsumgebungen der Teammitglieder ermöglicht.
+
+Die soeben genannten Entwicklungsumgebungen und Tools unterscheiden sich stark voneinander. Gemeinsam eingesetzte Tools umfassen Github, Github Actions und Qodanas statische Code Analyse.
+Die dotnet CLI wird entweder direkt oder über die Nutzung von verschiedenen IDE's angesteuert um die App zu starten, Migrationen zu erzeugen oder Tests auszuführen.
+
+Ebenso wird die dotnet CLI für die Verwaltung von User Secrets verwendet, welche für die Übersteuerung von Konfigurationsdateien verwendet werden, genutzt.
+
+IDE's umfassen verschiedene ausprägungen, von NeoVim über Rider bis zu Visual Studio kann alles verwendet werden. Users Choice!
+
 ## 12-Factor App
 Wie setzt der `devops-book-manager` die zwölf Faktoren der [Twelve-Factor App](12factor.net/de) um?
 

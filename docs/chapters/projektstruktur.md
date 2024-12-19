@@ -1,5 +1,5 @@
-# Projektstruktur
-Dieses Kapitel beschreibt die gewählte Projektstruktur.
+# Projektstruktur, Techniken & Tools
+Dieses Kapitel beschreibt die gewählte Projektstruktur und die verwendeten Techniken & Tools.
 
 ## Ordnerstruktur
 ### .github
@@ -43,3 +43,46 @@ Hierbei sind noch viele Challanges wie Projection, Nested Filtering und effizien
 ### Graph Layer
 In diesem Layer werden alle GraphQL-Spezifischen Queries, Types und Nodes definiert. Hierbei wird stark auf die HotChocolate Source-Generation gesetzt, welche viel Boilerplate-Code mittels Attributen übernimmt.
 In dieser Dokumentation wird nicht zu detailliert in die Funktionsweise von GraphQL eingegangen. Diese kann auf der offiziellen [HotChocolate Dokumentation](https://chillicream.com/docs/hotchocolate/v14) betrachtet werden.
+
+## 12-Factor App
+Wie setzt der `devops-book-manager` die zwölf Faktoren der [Twelve-Factor App](12factor.net/de) um?
+
+### I. Codebase
+Die Codebase ist auf github verwaltet und jedes Push auf den `main`-Branch führ zu einem DEV-Release.
+INT und PROD werden manuell gesteuert, sollen aber schnell und häufig passieren.
+
+### II: Abhängigkeiten
+Abhängigkeiten explizit deklariert und isoliert, in dem Sinne, dass das DataLayer von Postgres Abhängig ist und das Graph Layer von HotChocolate.
+Die Abhängigkeiten der Bibliotheken untereinander sind klar definiert.
+
+### III. Konfiguration
+Die Konfiguration wird über Umgebungsvariabeln gesteuert und kann beispielsweise im Onboarding gelesen werden.
+
+### IV. Unterstützdene Dienste
+Unterstützende Dienste wie Postgres und PgAdmin werden als Ressourcen angehängt durch deren Präsenz in allen `docker-compose` Dateien.
+
+### V. Build, Release, Run
+Hier könnte man sich noch etwas verbessern, rein logisch. Die einzelnen Steps sind strikt verteilt, befinden sich aber immer in den selben Files.
+Builds werden getriggered, Releases werden auf die Docker-Registry basierend auf den Builds getriggered und nach erfolgreichen Releases werden die Images auf die VMs gepulled und gestartet.
+
+### VI. Prozesse
+Die App selbst wird als ein einziger Prozess ausgeführt. Einzelne Requests werden jedoch Multithreaded durch die GraphQL Engine verwaltet, abgearbeitet.
+
+### VII. Bindung and Ports
+Die API ist durch `docker-compose` Port-Mapping an spezifische Ports gebunden.
+
+### VIII. Nebenläufigkeit
+Durch die HotChocolate Technologie wird Nebenläufigkeit automatisch verwaltet. Es muss lediglich nicht aktiv verhindert werden!
+
+### IX. Einweggebrauch
+Die Applikation kann schnell gestartet und problemlos gestoppt werden.
+
+### X. Dev-Prod-Vergleichbarkeit
+Dies liegt in der Verantwortung der Release-Engineers, möglichst fleissig INT- und PROD-Releases anzusteuern.
+
+### XI. Logs
+Logs werden standardmässig über den IO-Stream ausgegeben und können wie erwünscht Technologieunabhängig gesammelt werden.
+
+### XII. Admin-Prozessse
+Admin- und Management-Aufgaben gibt es im Moment keine im Rahmen des `devops-book-manager`.
+

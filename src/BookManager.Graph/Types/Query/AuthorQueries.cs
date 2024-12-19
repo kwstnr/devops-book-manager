@@ -4,10 +4,10 @@ using BookManager.Domain;
 namespace BookManager.Graph.Types.Query;
 
 [QueryType]
-public static class BookQueries
+public static class AuthorQueries
 {
     [UsePaging]
     [UseFiltering]
     [UseSorting]
-    public static IQueryable<Book> GetBooks([Service] IBookService bookService) => bookService.GetBooks();
+    public static IQueryable<Author> GetAuthors([Service] IAuthorService authorService) => authorService.GetAuthors();
 }

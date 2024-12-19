@@ -30,3 +30,4 @@ jobs:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
           args: "--fail-threshold,0,--baseline,.github/workflows/qodana.sarif.json"     
+          post-pr-comment: true

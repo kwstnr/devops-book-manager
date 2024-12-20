@@ -9,12 +9,12 @@ internal class BookConfiguration : IEntityTypeConfiguration<Book>
 {
     public void Configure(EntityTypeBuilder<Book> builder)
     {
-        builder.HasOne<Author>(x => x.Author)
+        builder.HasOne(x => x.Author)
             .WithMany(x => x.Books)
             .HasForeignKey(x => x.AuthorId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasMany<Genre>(x => x.Genres)
+        builder.HasMany(x => x.Genres)
             .WithMany(x => x.Books)
             .UsingEntity<Dictionary<string, object>>(
                 "BookGenre",

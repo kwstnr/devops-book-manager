@@ -22,6 +22,6 @@ internal static class AuthorDataLoaders
         CancellationToken cancellationToken)
         => await context.Books
             .Where(b => keys.Contains(b.Id))
-            .Select(b => new {Id = b.Id, Author = b.Author})
+            .Select(b => new {b.Id, b.Author})
             .ToDictionaryAsync(b => b.Id, b => b.Author, cancellationToken);
 }

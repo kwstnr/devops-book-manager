@@ -11,28 +11,25 @@ Für unser Projekt haben wir uns für **Trunk-Based Development** als Branching-
 1. **Ein einziger Trunk-Branch:**
    - Alle Arbeiten werden direkt in den `trunk`-Branch (Hauptbranch) eingecheckt.
 
-2. **Kurzlebige Feature-Branches (optional):**
+2. **Kurzlebige Feature-Branches:**
    - Entwickler können kurzlebige Feature-Branches für komplexe Änderungen verwenden, sollten aber so schnell wie möglich in den `trunk` zurück mergen.
 
 3. **Häufige Commits:**
-   - Entwickler committen kleine, inkrementelle Änderungen direkt in den Trunk, um kontinuierliche Integration zu gewährleisten.
+   - Entwickler committen kleine, inkrementelle Änderungen als PR in den Trunk, um kontinuierliche Integration zu gewährleisten.
 
 4. **Kontinuierliche Integration:**
    - Automatisierte Tests und Builds werden bei jedem Commit ausgelöst, um Codequalität und Funktionalität sicherzustellen.
-
-5. **Keine langlebigen Release-Branches:**
-   - Release-Branches werden kurzzeitig zur Stabilisierung erstellt und nach dem Release geschlossen.
 
 ---
 
 ## Workflow
 
 ### 1. Tägliche Entwicklung
-- Entwickler committen ihren Code direkt in den `trunk`-Branch.
-- Code-Reviews werden im Rahmen von Pull-Requests (PR) oder direkt inline bei Commits durchgeführt.
+- Entwickler committen ihren Code in den `trunk`-Branch via Pull-Requests (PR).
+- Code-Reviews werden im Rahmen von Pull-Requests durchgeführt.
 - Automatisierte Tests validieren jeden Commit, um die Qualität sicherzustellen.
 
-### 2. Kurzlebige Feature-Branches (falls notwendig)
+### 2. Kurzlebige Feature-Branches
 - Ein Feature-Branch wird vom `trunk` erstellt, wenn Änderungen mehrere Commits erfordern oder nicht sofort gemerged werden können.
 - Entwickler rebasen den Feature-Branch kontinuierlich auf den `trunk`, um Abweichungen zu minimieren.
 - Nach Fertigstellung wird der Feature-Branch in den `trunk` gemerged und gelöscht.

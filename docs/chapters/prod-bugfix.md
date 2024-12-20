@@ -16,7 +16,7 @@ Dieser Leitfaden beschreibt den Ablauf für einen Notfall-Bugfix auf Prod basier
 3. **Neuen Hotfix-Branch erstellen**
    - Erstelle einen neuen Branch für den Bugfix:
      ```bash
-     git checkout -b bug/xxxxx
+     git checkout -b fix/xxxxx
      ```
      (Ersetze `xxxxx` durch eine aussagekräftige Bug-ID oder Beschreibung.)
 
@@ -27,14 +27,14 @@ Dieser Leitfaden beschreibt den Ablauf für einen Notfall-Bugfix auf Prod basier
    - Committe die Änderungen mit einer aussagekräftigen Nachricht:
      ```bash
      git add .
-     git commit -m "bug: xxxxx"
+     git commit -m "fix: xxxxx"
      ```
 
 6. **Merge-Requests erstellen**
    - Erstelle zwei Merge-Requests:
-     1. **Von `bug/xxxxx` in `release/1.0.0`:**
+     1. **Von `fix/xxxxx` in `release/1.0.0`:**
         - Dieser Merge-Request sorgt dafür, dass der Bugfix in den aktuellen Release-Branch aufgenommen wird.
-     2. **Von `bug/xxxxx` in `trunk`:**
+     2. **Von `fix/xxxxx` in `trunk`:**
         - Dieser Merge-Request stellt sicher, dass der Bugfix langfristig auch im Hauptbranch (`trunk`) vorhanden ist.
 
 7. **Prod-Release-Pipeline ausführen**

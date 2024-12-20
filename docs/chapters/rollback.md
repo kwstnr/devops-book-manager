@@ -1,6 +1,6 @@
 # Rollback eines missglückten Releases
 
-Hier ist der Prozess beschrieben, wie ein missglücktes Release mithilfe unserer Trunk-Based Development-Strategie zurückgerollt wird. Allfällige fehlerhafte Migrationen werden in diesem Ablauf nicht berücksichtigt, da diese bereits im Kapitel [Persistenz und Migrationen](chapters/persistence-and-migrations.md) behandelt werden.
+Hier ist der Prozess beschrieben, wie ein missglücktes Release mithilfe unserer Trunk-Based Development-Strategie zurückgerollt wird. Allfällige fehlerhafte Migrationen werden in diesem Ablauf nicht berücksichtigt, da diese bereits im Kapitel [Persistenz und Migrationen](./persistence-and-migrations.md) behandelt werden.
 
 ## Ablauf
 

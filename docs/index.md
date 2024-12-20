@@ -10,4 +10,5 @@ Diese Seite beinhaltet die dazugehörige Dokumentation.
 - [Branching Strategie](chapters/branching-strategy.md)
 - [Zugriffspunkte](chapters/access-points.md)
 - [Notfall-Bugfix](chapters/prod-bugfix.md)
+- [Rollback](chapters/rollback.md)
 - [Lessons learned](chapters/learnings.md)

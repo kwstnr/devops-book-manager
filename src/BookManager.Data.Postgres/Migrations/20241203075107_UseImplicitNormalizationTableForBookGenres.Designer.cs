@@ -3,6 +3,7 @@ using System;
 using BookManager.Data.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookManager.Data.Postgres.Migrations
 {
     [DbContext(typeof(BookManagerDbContext))]
-    partial class BookManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241203075107_UseImplicitNormalizationTableForBookGenres")]
+    partial class UseImplicitNormalizationTableForBookGenres
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,18 +38,6 @@ namespace BookManager.Data.Postgres.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("BookGenre");
-
-                    b.HasData(
-                        new
-                        {
-                            BookId = new Guid("ec7611bb-a7cf-4af3-a81d-1cf231894dff"),
-                            GenreId = new Guid("b2d0376b-3e47-461a-8ddf-e830eaf888e8")
-                        },
-                        new
-                        {
-                            BookId = new Guid("c5537ac1-76d6-452b-9a45-f6aca18d0e70"),
-                            GenreId = new Guid("eb7f2840-b13e-4c62-ae44-b4d27ad1c251")
-                        });
                 });
 
             modelBuilder.Entity("BookManager.Domain.Author", b =>

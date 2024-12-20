@@ -17,6 +17,6 @@ Dementsprechend benötigt eine risikobehaftete Migration stets mehrere Versionen
 Dies verlangt einen erhöhten Managementaufwand, ermöglicht jedoch sichere Breaking Schema Changes.
 
 ### Fehlgeschlagene Mutationen
-Mutationen die Technisch nicht umsetzbar sind, sollten es nie auf die DEV Umgebung durch Integrationstests schaffen. Die Integrationstests in Question müssen aber noch umgesetzt werden...
-Falls eine Mutation fachlich nicht wie erwartet funktioner hat, muss diese über eine weitere Mutation in einem HotFix rückwärts gemacht werden. Auf den produktiven Deployment Stages werden keine Migrationen zurückgerollt.
-Dies bedeutet aber nicht, dass fehlgeschlagene Version-Upgrades ohne Migrationen nicht gerollbacked werden dürfen!
+Mutationen die Technisch nicht umsetzbar sind, sollten es nie auf die DEV Umgebung aufgrund der Integrationstests schaffen. Die relevanten Integrationstests müssen aber noch umgesetzt werden...
+Falls eine Mutation fachlich nicht wie erwartet funktionert hat, muss diese über eine weitere Mutation in einem HotFix "rückgängig" gemacht werden. Dies geschieht durch das Erstellen einer zusätzlichen neuen Migration. Auf den produktiven Deployment Stages werden keine Migrationen zurückgerollt.
+Dies bedeutet aber nicht, dass fehlgeschlagene Version-Upgrades ohne Migrationen nicht zurückgerollt werden dürfen!
